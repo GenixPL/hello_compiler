@@ -7,5 +7,6 @@
     // Terminates current task if new one is spawned.
     "allow_concurrent_runs": true,
     "reveal": "no_focus",
+    "save": "current",
   },
 ]

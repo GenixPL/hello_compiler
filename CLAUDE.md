@@ -7,7 +7,7 @@ A learning project for ARM64 (AArch64) assembly on macOS, using Apple's calling 
 ## Build & run
 
 ```
-./compile_n_run.sh
+zsh ./scripts/compile_n_run.sh
 ```
 
 ## Rules
