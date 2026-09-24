@@ -18,16 +18,15 @@ _main:
   add     x1, x1, num1@PAGEOFF
   ldr     w1, [x1]
   ; Load second number
-  adrp    x1, num2@PAGE
-  add     x1, x1, num2@PAGEOFF
-  ldr     w2, [x1]
+  adrp    x2, num2@PAGE
+  add     x2, x2, num2@PAGEOFF
+  ldr     w2, [x2]
   ; Add
-  ; TODO(genix): it fails, it prints 2 (with 1 + 2)
-  add     w2, w2, w3
-  add     w2, w2, #'0' ; Convert result to ASCII digit
+  add     w3, w2, w1
+  add     w3, w3, #'0' ; Convert result to ASCII digit
   adrp    x1, result@PAGE
   add     x1, x1, result@PAGEOFF
-  strb    w2, [x1]
+  strb    w3, [x1]
   ; Print
   mov     x0, #1
   mov     x2, #1

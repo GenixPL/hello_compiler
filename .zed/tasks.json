@@ -1,9 +1,11 @@
 [
   {
     "label": "run main",
-    "command": "zsh $ZED_WORKTREE_ROOT/compile_n_run.sh",
-    "use_new_terminal": true,
-    "allow_concurrent_runs": false,
-    "reveal": "always",
+    "command": "zsh $ZED_WORKTREE_ROOT/scripts/compile_n_run.sh",
+    // Reuses the same terminal per task.
+    "use_new_terminal": false,
+    // Terminates current task if new one is spawned.
+    "allow_concurrent_runs": true,
+    "reveal": "no_focus",
   },
 ]
