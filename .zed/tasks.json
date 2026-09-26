@@ -1,7 +1,7 @@
 [
   {
     "label": "run main",
-    "command": "zsh $ZED_WORKTREE_ROOT/scripts/compile_n_run.sh",
+    "command": "zsh $ZED_WORKTREE_ROOT/scripts/compile_n_run_assembly.sh",
     // Reuses the same terminal per task.
     "use_new_terminal": false,
     // Terminates current task if new one is spawned.
