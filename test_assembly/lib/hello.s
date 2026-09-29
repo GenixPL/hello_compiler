@@ -2,9 +2,16 @@
 .align 4
 
 .extern add_numbers
+.extern print
+.extern exit
 
 .text ; default (not needed) area
 _main:
+  adrp x0, wtf@PAGE
+  add  x0, x0, wtf@PAGEOFF
+  b print
+  b exit
+
   ; Print the msg
   mov     x0, #1          ; File descriptor 1 = stdout
   adrp    x1, msg@PAGE    ; Load page base address of msg
@@ -49,8 +56,10 @@ _main:
 
 .data ; Holds read-write static/global variables initialized with explicit values.
 msg: ; Variable name
-  .ascii  "Hello, World\n"
+  .asciz  "Hello, World\n"
   .equ msg_len, . - msg
+wtf:
+  .asciz "ABC"
 num1:
   .word 1
 num2:
