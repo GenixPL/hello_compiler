@@ -8,6 +8,7 @@ class ParserBuiler {
       if (section.startsWith(supportedCommand.string)) {
         return switch (supportedCommand) {
           SupportedCommands.print => PrintParser(),
+          SupportedCommands.str => StrParser(),
         };
       }
     }
