@@ -7,10 +7,10 @@
 
 .text ; default (not needed) area
 _main:
-  adrp x0, wtf@PAGE
-  add  x0, x0, wtf@PAGEOFF
-  b print
-  b exit
+  mov x0, #456
+  bl int_to_str
+  bl print
+  bl exit
 
   ; Print the msg
   mov     x0, #1          ; File descriptor 1 = stdout
