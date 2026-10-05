@@ -4,7 +4,7 @@ abstract interface class Parser {
   ParsedSection parseSection(String section);
 }
 
-class ParsedSection({
-  required final Command command,
-  required final Data data,
+class const ParsedSection({
+  required List<Command> command,
+  required List<Data> data,
 });

@@ -1,6 +1,6 @@
-class const Data({
+sealed class const Data<T>({
   required final String ref,
-  required final String data,
+  required final T data,
 }) {
   static int _counter = 0;
 
@@ -8,3 +8,13 @@ class const Data({
     return 'd_${_counter++}';
   }
 }
+
+class StringData({
+  required super.ref,
+  required super.data,
+}) extends Data<String>;
+
+class IntData({
+  required super.ref,
+  required super.data,
+}) extends Data<String>;
