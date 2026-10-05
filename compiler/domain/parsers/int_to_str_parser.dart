@@ -1,7 +1,7 @@
 import '../_domain.dart';
 
-class PrintParser implements Parser {
-  const PrintParser();
+class IntToStrParser implements Parser {
+  const IntToStrParser();
 
   @override
   ParsedSection parseSection(Section section) {
@@ -14,20 +14,26 @@ class PrintParser implements Parser {
     final ParsedSection childReturn = childParser.parseSection(child);
     final Data? childReturnData = childReturn.returnData;
 
-    if (childReturnData is! StringData) {
-      throw "Wrong argument passed to `print`; expected StringData, got: ${childReturnData}";
+    if (childReturnData is! IntData) {
+      throw "Wrong argument passed to `str`; expected IntData, got: ${childReturnData}";
     }
 
+    final Data data = StringData(
+      data: childReturnData.data.toString(),
+      ref: Data.getNextRef(),
+    );
+
     return ParsedSection(
-      returnData: null,
+      returnData: data,
       commands: [
         ...childReturn.commands,
-        PrintCommand(
+        IntToStrCommand(
           dataRef: childReturnData.ref,
         ),
       ],
       data: [
         ...childReturn.data,
+        data,
       ],
     );
   }

@@ -42,7 +42,7 @@ class AssemblyBuilder {
       ...data.expand((data) {
         return [
           '${data.ref}:',
-          '  .asciz "${data.data}"',
+          '  ${data.assembly}',
         ];
       }),
       '',

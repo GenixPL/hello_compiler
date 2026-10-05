@@ -7,19 +7,18 @@ void main(List<String> args) {
   p("start");
 
   final AssemblyBuilder assemblyBuilder = AssemblyBuilder();
-  final ParserBuiler parserBuiler = ParserBuiler();
+  final SectionParser sectionParser = SectionParser();
 
-  final List<String> sections = readSections(args[0]);
-  for (final section in sections) {
-    final Parser? parser = parserBuiler.forSection(section);
-    if (parser == null) {
-      p('UNRECOGNIZED SECTION');
-      continue;
-    }
+  final File inputFile = File(args[0]);
+  final Section mainSection = sectionParser.main(inputFile.readAsStringSync());
 
-    final ParsedSection parsedSection = parser.parseSection(section);
-    assemblyBuilder.commands.add(parsedSection.command);
-    assemblyBuilder.data.add(parsedSection.data);
+  p(mainSection.toString());
+
+  for (final section in mainSection.children) {
+    _mapSection(
+      section: section,
+      builder: assemblyBuilder,
+    );
   }
 
   final String build = assemblyBuilder.build();
@@ -33,4 +32,14 @@ void main(List<String> args) {
   p('\n$build\n');
 
   p("end");
+}
+
+void _mapSection({
+  required Section section,
+  required AssemblyBuilder builder,
+}) {
+  final Parser parser = ParserBuiler.forSection(section);
+  final ParsedSection parsedSection = parser.parseSection(section);
+  builder.commands.addAll(parsedSection.commands);
+  builder.data.addAll(parsedSection.data);
 }

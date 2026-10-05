@@ -1,2 +1,4 @@
 print('special dupa\n');
 print('R U M P E\n');
+intToStr(4);
+print(intToStr(69));

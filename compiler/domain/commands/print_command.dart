@@ -9,7 +9,7 @@ class PrintCommand({
   List<String> get assemblyLines {
     return [
       'adrp $register, $dataRef@PAGE',
-      'add  $register, $register, $dataRef@PAGEOFF',
+      'add $register, $register, $dataRef@PAGEOFF',
       'bl print',
     ];
   }

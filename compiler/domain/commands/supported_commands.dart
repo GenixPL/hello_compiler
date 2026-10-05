@@ -1,6 +1,6 @@
 enum SupportedCommands {
   print('print'),
-  str('str'),
+  intToStr('intToStr'),
   ;
 
   const SupportedCommands(this.string);

@@ -1,3 +1,4 @@
+import '../../utils/_utils.dart';
 import '../_domain.dart';
 
 class Section({
@@ -5,7 +6,19 @@ class Section({
 
   // If there is `;` or `,`, it creates a child.
   required final List<Section> children,
-});
+}) {
+  String toString({
+    int depth = 0,
+  }) {
+    return [
+      '${"  " * depth} $current',
+      for (final child in children)
+        child.toString(
+          depth: depth + 1,
+        ),
+    ].join('\n');
+  }
+}
 
 class SectionParser {
   const SectionParser();
@@ -18,17 +31,25 @@ class SectionParser {
   }
 
   List<Section> parseChildren(String section) {
-    // Split children by `;`.
-    final List<String> lines = section.split(';')
-      ..removeWhere((line) => line.isEmpty);
-    if (lines.isNotEmpty) {
-      return [
-        for (final line in lines) ...parseChildren(line),
-      ];
+    if (section.contains(';')) {
+      // Split children by `;`.
+      final List<String> lines = section
+          .split(';')
+          .map((l) => l.trim())
+          .toList();
+      lines.removeWhere((line) => line.isEmpty);
+      if (lines.isNotEmpty) {
+        return [
+          for (final line in lines) ...parseChildren(line),
+        ];
+      }
     }
 
     // Split by commands
     for (final command in SupportedCommands.values) {
+      // print(
+      //   'D: command: $command section: $section startsWith: ${section.startsWith(command.string)}',
+      // );
       if (section.startsWith(command.string)) {
         return [
           Section(
@@ -49,6 +70,14 @@ class SectionParser {
     // TODO(genix): split by `,` will come here
 
     if (section.startsWith("'") && section.endsWith("'")) {
+      return [
+        Section(
+          current: section,
+          children: [],
+        ),
+      ];
+    }
+    if (int.tryParse(section) != null) {
       return [
         Section(
           current: section,

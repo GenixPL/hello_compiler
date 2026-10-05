@@ -10,6 +10,9 @@ _main:
   mov x0, #456
   bl int_to_str
   bl print
+  mov x0, xzr
+  bl int_to_str
+  bl print
   bl exit
 
   ; Print the msg
