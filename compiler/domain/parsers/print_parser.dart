@@ -23,7 +23,7 @@ class PrintParser implements Parser {
       commands: [
         ...childReturn.commands,
         PrintCommand(
-          dataRef: childReturnData.ref,
+          stringData: childReturnData,
         ),
       ],
       data: [

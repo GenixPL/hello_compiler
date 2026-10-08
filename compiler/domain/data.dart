@@ -8,7 +8,7 @@ sealed class const Data<T>({
     return 'd_${_counter++}';
   }
 
-  String get assembly;
+  List<String> get assembly;
 }
 
 class StringData({
@@ -16,7 +16,11 @@ class StringData({
   required super.data,
 }) extends Data<String> {
   @override
-  String get assembly => '.asciz "$data"';
+  List<String> get assembly => [
+    '.asciz "$data"',
+    // Give it space for 50 chars.
+    '.space  50 - (. - $ref), 0',
+  ];
 }
 
 class IntData({
@@ -24,5 +28,7 @@ class IntData({
   required super.data,
 }) extends Data<int> {
   @override
-  String get assembly => '.word $data';
+  List<String> get assembly => [
+    '.word $data',
+  ];
 }

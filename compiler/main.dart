@@ -3,6 +3,8 @@ import 'dart:io';
 import 'domain/parsers/_parsers.dart';
 import 'utils/_utils.dart';
 
+// TODO(genix): add variables
+
 void main(List<String> args) {
   p("start");
 

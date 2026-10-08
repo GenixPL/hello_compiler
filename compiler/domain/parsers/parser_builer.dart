@@ -10,6 +10,7 @@ class ParserBuiler {
         return switch (supportedCommand) {
           SupportedCommands.print => PrintParser(),
           SupportedCommands.intToStr => IntToStrParser(),
+          SupportedCommands.intAdd => IntAddParser(),
         };
       }
     }

@@ -2,14 +2,13 @@
 import '../_domain.dart';
 
 class PrintCommand({
-  required final String dataRef,
-  final String register = 'x0',
+required final StringData stringData,
 }) implements Command {
   @override
   List<String> get assemblyLines {
     return [
-      'adrp $register, $dataRef@PAGE',
-      'add $register, $register, $dataRef@PAGEOFF',
+      'adrp x0, ${stringData.ref}@PAGE',
+      'add x0, x0, ${stringData.ref}@PAGEOFF',
       'bl print',
     ];
   }

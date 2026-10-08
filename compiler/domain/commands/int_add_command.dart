@@ -1,17 +1,18 @@
-import 'command.dart';
+import '../_domain.dart';
 
-class IntToStrCommand({
-  required final String dataRef,
+class IntAddCommand({
+  required final IntData left,
+  required final IntData right,
   required final String outputRef,
 }) implements Command {
   @override
   List<String> get assemblyLines {
     return [
-      '# convert int to string',
-      'adrp x1, $dataRef@PAGE',
-      'add x1, x1, $dataRef@PAGEOFF',
-      'ldr x0, [x1]',
-      'bl int_to_str',
+      '# add',
+      'mov x0, ${left.data}',
+      'mov x1, ${right.data}',
+      'bl int_add',
+
       '# store output',
       'adrp x1, $outputRef@PAGE',
       'add x1, x1, $outputRef@PAGEOFF',

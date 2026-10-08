@@ -7,10 +7,32 @@
 
 .text ; default (not needed) area
 _main:
-  mov x0, #456
+  # convert int to string
+  adrp x1, d_9@PAGE
+  add x1, x1, d_9@PAGEOFF
+  ldr x0, [x1]
+  bl int_to_str
+  # store output
+  adrp x1, str_d_9@PAGE
+  add x1, x1, str_d_9@PAGEOFF
+  str x0, [x1]
+
+  adrp x0, str_d_9@PAGE
+  add x0, x0, str_d_9@PAGEOFF
+  ldr x0, [x0]
+  bl print
+
+  adrp x0, msg@PAGE
+  add x0, x0, msg@PAGEOFF
+  bl print
+  bl exit
+
+  mov x0, #60
+  mov x1, #9
+  bl int_add
   bl int_to_str
   bl print
-  mov x0, xzr
+  mov x0, #456
   bl int_to_str
   bl print
   bl exit
@@ -69,3 +91,8 @@ num2:
   .word 2
 result:
   .byte 0
+d_9:
+  .word 88
+str_d_9:
+  .asciz ""
+  .space 50, 0

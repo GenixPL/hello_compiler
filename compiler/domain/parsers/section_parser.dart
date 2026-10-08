@@ -1,4 +1,3 @@
-import '../../utils/_utils.dart';
 import '../_domain.dart';
 
 class Section({
@@ -65,9 +64,19 @@ class SectionParser {
       return parseChildren(section.substring(1, section.length - 1));
     }
 
-    // At this point we should be dealing with leaf data nodes.
+    if (section.contains(',')) {
+      final List<String> parts = section
+          .split(",")
+          .map((l) => l.trim())
+          .toList();
+      parts.removeWhere((line) => line.isEmpty);
+      return [
+        for (final part in parts) ...parseChildren(part),
+      ];
+    }
 
-    // TODO(genix): split by `,` will come here
+    // ===
+    // At this point we should be dealing with leaf data nodes.
 
     if (section.startsWith("'") && section.endsWith("'")) {
       return [
