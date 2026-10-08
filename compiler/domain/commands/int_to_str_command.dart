@@ -7,15 +7,15 @@ class IntToStrCommand({
   @override
   List<String> get assemblyLines {
     return [
-      '# convert int to string',
+      '# load the int',
       'adrp x1, $dataRef@PAGE',
       'add x1, x1, $dataRef@PAGEOFF',
       'ldr x0, [x1]',
-      'bl int_to_str',
-      '# store output',
+      '# premate output',
       'adrp x1, $outputRef@PAGE',
       'add x1, x1, $outputRef@PAGEOFF',
-      'str x0, [x1]',
+      '# convert and store',
+      'bl int_to_str',
     ];
   }
 }

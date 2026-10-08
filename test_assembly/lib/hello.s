@@ -7,6 +7,31 @@
 
 .text ; default (not needed) area
 _main:
+  mov x0, 90
+  mov x1, 6
+  bl int_add
+  # store output
+  adrp x1, d_2@PAGE
+  add x1, x1, d_2@PAGEOFF
+  str x0, [x1]
+  
+  # convert int to string
+  adrp x1, d_2@PAGE
+  add x1, x1, d_2@PAGEOFF
+  ldr x0, [x1]
+  bl int_to_str
+  # store output
+  adrp x1, d_3@PAGE
+  add x1, x1, d_3@PAGEOFF
+  str x0, [x1]
+  
+  adrp x0, d_3@PAGE
+  add x0, x0, d_3@PAGEOFF
+  ldr x0, [x0]
+  bl print
+  
+  b exit
+
   # convert int to string
   adrp x1, d_9@PAGE
   add x1, x1, d_9@PAGEOFF
@@ -80,6 +105,15 @@ _main:
   svc     #0x80           ; Issue supervisor call
 
 .data ; Holds read-write static/global variables initialized with explicit values.
+d_0:
+  .word 90
+d_1:
+  .word 6
+d_2:
+  .word 0
+d_3:
+  .asciz ""
+  .space  50 - (. - d_3), 0
 msg: ; Variable name
   .asciz  "Hello, World\n"
   .equ msg_len, . - msg

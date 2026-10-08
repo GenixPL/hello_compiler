@@ -29,6 +29,6 @@ class IntData({
 }) extends Data<int> {
   @override
   List<String> get assembly => [
-    '.word $data',
+    '.quad $data',
   ];
 }

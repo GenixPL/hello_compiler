@@ -5,6 +5,8 @@ class AssemblyBuilder {
     'exit',
     'print',
     'strlen',
+    'int_add',
+    'int_to_str',
   ];
 
   final List<Data> data = [];
@@ -38,11 +40,11 @@ class AssemblyBuilder {
       '',
 
       //
-      '.data:',
+      '.data',
       ...data.expand((data) {
         return [
           '${data.ref}:',
-          '  ${data.assembly}',
+          for (final line in data.assembly) '  $line',
         ];
       }),
       '',
